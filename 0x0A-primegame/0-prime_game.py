@@ -16,24 +16,39 @@ def is_prime(n):
         i += 6
     return True
 
+def get_primes(n):
+    """Returns a list of prime numbers from 2 to n."""
+    primes = []
+    for i in range(2, n + 1):
+        if is_prime(i):
+            primes.append(i)
+    return primes
+
+def play_round(n):
+    """Simulates a round of the game and returns the winner."""
+    nums = set(range(1, n + 1))
+    primes = get_primes(n)
+    player = 0
+    while primes:
+        prime = primes.pop(0)
+        nums -= set(range(prime, n + 1, prime))
+        player = 1 - player
+        primes = [x for x in primes if x in nums]
+    return player
+
 def isWinner(x, nums):
     """Determine the winner of the Prime Game"""
     if not nums:
         return None
 
-    wins = {'Maria': 0, 'Ben': 0}
-
+    score = [0, 0]
     for n in nums:
-        prime_count = sum(1 for i in range(1, n + 1) if is_prime(i))
-        if prime_count % 2 == 0:
-            wins['Ben'] += 1
-        else:
-            wins['Maria'] += 1
-
-    if wins['Maria'] > wins['Ben']:
-        return 'Maria'
-    elif wins['Maria'] < wins['Ben']:
-        return 'Ben'
+        winner = play_round(n)
+        score[winner] += 1
+    if score[0] > score[1]:
+        return "Maria"
+    elif score[1] > score[0]:
+        return "Ben"
     else:
         return None
 
