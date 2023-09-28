@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Prime Game"""
 
+
 def is_prime(n):
     """Check if a number is prime"""
     if n <= 1:
@@ -15,6 +16,7 @@ def is_prime(n):
             return False
         i += 6
     return True
+
 
 def isWinner(x, nums):
     """Determine the winner of the Prime Game"""
@@ -37,5 +39,6 @@ def isWinner(x, nums):
     else:
         return None
 
+
 if __name__ == "__main__":
-    print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
+    print("Winner: {}".format(isWinner(3, [4, 5, 1])))
